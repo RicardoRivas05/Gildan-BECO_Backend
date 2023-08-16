@@ -1,6 +1,8 @@
 import {Entity, model, property} from '@loopback/repository';
 
-@model({settings: {idInjection: false, mssql: {schema: 'dbo', table: 'Tarifa'}}})
+@model({
+  settings: {idInjection: false, mssql: {schema: 'dbo', table: 'Tarifa'}},
+})
 export class Tarifa extends Entity {
   @property({
     type: 'number',
@@ -8,7 +10,14 @@ export class Tarifa extends Entity {
     precision: 10,
     scale: 0,
     id: 1,
-    mssql: {columnName: 'id', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'YES'},
+    mssql: {
+      columnName: 'id',
+      dataType: 'int',
+      dataLength: null,
+      dataPrecision: 10,
+      dataScale: 0,
+      nullable: 'YES',
+    },
   })
   id?: number;
 
@@ -16,14 +25,28 @@ export class Tarifa extends Entity {
     type: 'string',
     required: true,
     length: 50,
-    mssql: {columnName: 'codigo', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'NO'},
+    mssql: {
+      columnName: 'codigo',
+      dataType: 'varchar',
+      dataLength: 50,
+      dataPrecision: null,
+      dataScale: null,
+      nullable: 'NO',
+    },
   })
   codigo: string;
 
   @property({
     type: 'string',
     length: 250,
-    mssql: {columnName: 'descripcion', dataType: 'varchar', dataLength: 250, dataPrecision: null, dataScale: null, nullable: 'YES'},
+    mssql: {
+      columnName: 'descripcion',
+      dataType: 'varchar',
+      dataLength: 250,
+      dataPrecision: null,
+      dataScale: null,
+      nullable: 'YES',
+    },
   })
   descripcion?: string;
 
@@ -31,26 +54,54 @@ export class Tarifa extends Entity {
     type: 'number',
     precision: 10,
     scale: 0,
-    mssql: {columnName: 'puntoMedicionId', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'YES'},
+    mssql: {
+      columnName: 'TipoMedidorId',
+      dataType: 'int',
+      dataLength: null,
+      dataPrecision: 10,
+      dataScale: 0,
+      nullable: 'YES',
+    },
   })
-  puntoMedicionId?: number;
+  TipoMedidorId?: number;
 
   @property({
     type: 'boolean',
-    mssql: {columnName: 'tipo', dataType: 'bit', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'YES'},
+    mssql: {
+      columnName: 'tipo',
+      dataType: 'bit',
+      dataLength: null,
+      dataPrecision: null,
+      dataScale: null,
+      nullable: 'YES',
+    },
   })
   tipo?: boolean;
 
   @property({
     type: 'string',
     length: -1,
-    mssql: {columnName: 'observacion', dataType: 'nvarchar', dataLength: -1, dataPrecision: null, dataScale: null, nullable: 'YES'},
+    mssql: {
+      columnName: 'observacion',
+      dataType: 'nvarchar',
+      dataLength: -1,
+      dataPrecision: null,
+      dataScale: null,
+      nullable: 'YES',
+    },
   })
   observacion?: string;
 
   @property({
     type: 'boolean',
-    mssql: {columnName: 'estado', dataType: 'bit', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'YES'},
+    mssql: {
+      columnName: 'estado',
+      dataType: 'bit',
+      dataLength: null,
+      dataPrecision: null,
+      dataScale: null,
+      nullable: 'YES',
+    },
   })
   estado?: boolean;
 

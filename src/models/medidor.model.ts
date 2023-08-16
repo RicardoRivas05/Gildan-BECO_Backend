@@ -126,7 +126,7 @@ export class Medidor extends Entity {
     precision: 10,
     scale: 0,
     mssql: {
-      columnName: 'puntoMedicionId',
+      columnName: 'TipoMedidorId',
       dataType: 'int',
       dataLength: null,
       dataPrecision: 10,
@@ -134,7 +134,7 @@ export class Medidor extends Entity {
       nullable: 'YES',
     },
   })
-  puntoMedicionId?: number;
+  TipoMedidorId?: number;
 
   @property({
     type: 'string',

@@ -1,9 +1,9 @@
 import {Entity, model, property} from '@loopback/repository';
 
 @model({
-  settings: {idInjection: false, mssql: {schema: 'dbo', table: 'TipoMedidor'}},
+  settings: {idInjection: false, mssql: {schema: 'dbo', table: 'CPI'}},
 })
-export class Zona extends Entity {
+export class cpi extends Entity {
   @property({
     type: 'number',
     required: false,
@@ -11,62 +11,59 @@ export class Zona extends Entity {
     scale: 0,
     id: 1,
     mssql: {
-      columnName: 'Id',
+      columnName: 'ID',
       dataType: 'int',
       dataLength: null,
       dataPrecision: 10,
       dataScale: 0,
-      nullable: 'YES',
+      nullable: 'NO',
     },
   })
-  id?: number;
+  ID: number;
 
   @property({
     type: 'string',
     length: 50,
     mssql: {
-      columnName: 'Codigo',
-      dataType: 'varchar',
-      dataLength: 50,
+      columnName: 'Month',
+      dataType: 'nvarchar',
+      dataLength: 20,
       dataPrecision: null,
       dataScale: null,
       nullable: 'YES',
     },
   })
-  codigo?: string;
+  Month?: string;
 
   @property({
     type: 'string',
-    length: 250,
     mssql: {
-      columnName: 'Descripcion',
+      columnName: 'Year',
       dataType: 'varchar',
-      dataLength: 250,
       dataPrecision: null,
       dataScale: null,
       nullable: 'YES',
     },
   })
-  descripcion?: string;
+  Year?: number;
 
   @property({
     type: 'string',
-    length: -1,
     mssql: {
-      columnName: 'Observacion',
-      dataType: 'varchar',
-      dataLength: -1,
-      dataPrecision: null,
-      dataScale: null,
+      columnName: 'Value',
+      dataType: 'decimal',
+      dataPrecision: 10,
+      dataScale: 3,
       nullable: 'YES',
     },
   })
-  observacion?: string;
+  Value?: number;
 
   @property({
     type: 'boolean',
+    required: false,
     mssql: {
-      columnName: 'Estado',
+      columnName: 'estado',
       dataType: 'bit',
       dataLength: null,
       dataPrecision: null,
@@ -74,7 +71,7 @@ export class Zona extends Entity {
       nullable: 'YES',
     },
   })
-  estado?: boolean;
+  estado: boolean;
 
   // Define well-known properties here
 
@@ -82,13 +79,13 @@ export class Zona extends Entity {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [prop: string]: any;
 
-  constructor(data?: Partial<Zona>) {
+  constructor(data?: Partial<cpi>) {
     super(data);
   }
 }
 
-export interface ZonaRelations {
+export interface cpiRelations {
   // describe navigational properties here
 }
 
-export type ZonaWithRelations = Zona & ZonaRelations;
+export type cpiWithRelations = cpi & cpiRelations;
