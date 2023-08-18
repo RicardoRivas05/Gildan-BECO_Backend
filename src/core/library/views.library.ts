@@ -5,7 +5,6 @@ export namespace viewOf {
   export const GET_Clients = `SELECT * FROM dbo.GetCliente`;
   export const GET_Providers = `SELECT * FROM dbo.GetProveedor`;
   export const GET_Zones = `SELECT * FROM dbo.GetTipoMedidor`;
-  export const Get_CPI = `SELECT * FROM dbo.CPI`;
   export const GET_RATES = `SELECT * FROM dbo.GetTarifas`;
   export const GET_RATE_PARAMETERS = `SELECT * FROM dbo.GetParametros`;
   export const GET_ALL_PARAMETERS = `SELECT * FROM dbo.GetAllParametros`;
@@ -31,4 +30,9 @@ export namespace viewOf {
   export const GET_EEHINVOICE_CHARGUES = ` SELECT * FROM dbo.GetCargosXFactura `;
   export const GET_ACTIVE_SOURCE = ` SELECT * FROM dbo.GetSource `;
   export const GET_CREDENTIAL = ` SELECT * FROM dbo.GetCrendential `;
+
+  //jk
+  export const Get_CPI = `SELECT * FROM dbo.CPI`;
+  export const Get_ipc = `SELECT * FROM dbo.IPC`;
+  export const getEnergiaSuministrada = `SELECT * from dbo.medidoresEnergiaSuministrada`;
 }

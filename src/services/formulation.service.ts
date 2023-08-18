@@ -1,6 +1,7 @@
 import {/* inject, */ BindingScope, injectable} from '@loopback/core';
 import {repository} from '@loopback/repository';
 import {GenerateInvoice} from '../core/interfaces/models/invoice-generete.interface';
+import {viewOf} from '../core/library/views.library';
 import {
   // FacturaManualRepository,
   MedidorRepository,
@@ -230,24 +231,30 @@ export class FormulationService {
       EnergiaActiva = 129,
       EnergiaActivaExportada = 1001,
       Exportada = 139;
-    let medidorEEH = 0,
-      medidorGeneracionSolar = 1;
-    let tarifaEnergiaExterna = 13;
     let cliente = 3,
       proveedorExterno = 1,
       proveedorInterno = 4;
     let MedidorFronteraSourceID = 0;
-    let FS = 0,
-      EAC = 0,
-      ESG = 0,
-      EXR = 0,
-      ECR = 0,
-      ETCR = 0;
-    let PBE = 0;
-    let PI = 0,
-      ETCE = 0,
-      ETO = 0;
+
     let fechaInicial = new Date(generateInvoice.fechaInicial).getMinutes() % 15;
     let fechaFinal = new Date(generateInvoice.fechaFinal).getMinutes() % 15;
+
+    let getMedidoresEnergiaSuministrada = this.getMedidoresEnergiaSuministrada(
+      generateInvoice,
+      EnergiaActiva,
+      EnergiaReactiva,
+    );
+
+    console.log(getMedidoresEnergiaSuministrada);
+  }
+
+  async getMedidoresEnergiaSuministrada(
+    generateInvoice: GenerateInvoice,
+    quantity1ID: number,
+    quantity2ID: number,
+  ) {
+    return await this.medidorRepository.dataSource.execute(
+      `${viewOf.GET_IONDATA} where (TimestampUTC = dateadd(hour,6,'${generateInvoice.fechaInicial}') or TimestampUTC =  dateadd(hour,6,'${generateInvoice.fechaFinal}')) and quantityID = ${quantity1ID} or quantityID = ${quantity2ID} ORDER BY sourceName ASC`,
+    );
   }
 }

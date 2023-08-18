@@ -1,9 +1,9 @@
 import {Entity, model, property} from '@loopback/repository';
 
 @model({
-  settings: {idInjection: false, mssql: {schema: 'dbo', table: 'CPI'}},
+  settings: {idInjection: false, mssql: {schema: 'dbo', table: 'IPC'}},
 })
-export class cpi extends Entity {
+export class ipc extends Entity {
   @property({
     type: 'number',
     required: false,
@@ -79,13 +79,13 @@ export class cpi extends Entity {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [prop: string]: any;
 
-  constructor(data?: Partial<cpi>) {
+  constructor(data?: Partial<ipc>) {
     super(data);
   }
 }
 
-export interface cpiRelations {
+export interface ipcRelations {
   // describe navigational properties here
 }
 
-export type cpiWithRelations = cpi & cpiRelations;
+export type ipcWithRelations = ipc & ipcRelations;
