@@ -150,8 +150,8 @@ export class ipcController {
   @get('/get-ipc/{id}')
   async Getipc(@param.path.number('id') id: number): Promise<any> {
     let datos = await this.dataipc(id);
-    console.log('-------------------------', id);
-    console.log('datos', datos);
+    // console.log('-------------------------', id);
+    // console.log('datos', datos);
     return datos;
   }
 

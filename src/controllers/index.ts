@@ -3,13 +3,13 @@ export * from './auth.controller';
 export * from './contract-meter.controller';
 export * from './contract-type.controller';
 export * from './contracts.controller';
-
 export * from './manual-registration.controller';
 export * from './measuring-point.controller';
 export * from './meters.controller';
 export * from './notify.controller';
 export * from './rate-param-detail.controller';
 export * from './rates.controller';
+export * from './reports.controller';
 export * from './rol.controller';
 export * from './roll-over.controller';
 export * from './upload-file.controller';

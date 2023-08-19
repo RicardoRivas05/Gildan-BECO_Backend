@@ -153,7 +153,7 @@ export class ContractsController {
   @get('/get-contracts/{id}')
   async ContractsTable(@param.path.number('id') id: number): Promise<any> {
     let datos = await this.getContracts(id);
-    console.log('----------------------', datos);
+    // console.log('----------------------', datos);
     return datos;
   }
 

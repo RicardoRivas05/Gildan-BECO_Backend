@@ -150,7 +150,7 @@ export class cpiController {
   @get('/get-cpi/{id}')
   async Getcpi(@param.path.number('id') id: number): Promise<any> {
     let datos = await this.datacpi(id);
-    console.log('-------------------------', id);
+    // console.log('-------------------------', id);
     console.log('datos', datos);
     return datos;
   }

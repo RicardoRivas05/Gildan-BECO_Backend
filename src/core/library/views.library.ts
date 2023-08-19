@@ -34,5 +34,5 @@ export namespace viewOf {
   //jk
   export const Get_CPI = `SELECT * FROM dbo.CPI`;
   export const Get_ipc = `SELECT * FROM dbo.IPC`;
-  export const getEnergiaSuministrada = `SELECT * from dbo.medidoresEnergiaSuministrada`;
+  export const getConsumoMedidores = `SELECT * from dbo.getConsumoMedidores`;
 }
