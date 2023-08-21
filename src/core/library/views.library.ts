@@ -35,4 +35,5 @@ export namespace viewOf {
   export const Get_CPI = `SELECT * FROM dbo.CPI`;
   export const Get_ipc = `SELECT * FROM dbo.IPC`;
   export const getConsumoMedidores = `SELECT * from dbo.getConsumoMedidores`;
+  export const getEuroData = `SELECT * from dbo.AccesoEuro`;
 }
