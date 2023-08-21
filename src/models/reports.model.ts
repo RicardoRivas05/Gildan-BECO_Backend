@@ -106,6 +106,18 @@ export class report extends Entity {
   @property({
     type: 'string',
     mssql: {
+      columnName: 'codigo',
+      dataType: 'varchar',
+      dataPrecision: null,
+      dataScale: null,
+      nullable: 'YES',
+    },
+  })
+  codigo?: string;
+
+  @property({
+    type: 'string',
+    mssql: {
       columnName: 'TipoMedidor',
       dataType: 'varchar',
       dataPrecision: null,
