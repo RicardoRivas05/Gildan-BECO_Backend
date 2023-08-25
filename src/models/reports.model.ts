@@ -92,7 +92,7 @@ export class report extends Entity {
   quantityName?: string;
 
   @property({
-    type: 'string',
+    type: 'number',
     mssql: {
       columnName: 'Value',
       dataType: 'float',
