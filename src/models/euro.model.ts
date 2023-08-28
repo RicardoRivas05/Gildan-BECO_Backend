@@ -25,7 +25,7 @@ export class euro extends Entity {
     type: 'string',
     length: 50,
     mssql: {
-      columnName: 'Fecha',
+      columnName: 'fechaInicial',
       dataType: 'Date',
       dataLength: 20,
       dataPrecision: null,
@@ -33,7 +33,21 @@ export class euro extends Entity {
       nullable: 'YES',
     },
   })
-  Fecha?: Date;
+  fechaInicial?: Date;
+
+  @property({
+    type: 'string',
+    length: 50,
+    mssql: {
+      columnName: 'fechaFinal',
+      dataType: 'Date',
+      dataLength: 20,
+      dataPrecision: null,
+      dataScale: null,
+      nullable: 'YES',
+    },
+  })
+  fechaFinal?: Date;
 
   @property({
     type: 'string',

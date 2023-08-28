@@ -26,7 +26,7 @@ export class horasPunta extends Entity {
     length: 50,
     mssql: {
       columnName: 'fechaInicial',
-      dataType: 'datetime',
+      dataType: 'date',
       dataLength: 20,
       dataPrecision: null,
       dataScale: null,
@@ -40,7 +40,7 @@ export class horasPunta extends Entity {
     length: 50,
     mssql: {
       columnName: 'fechaFinal',
-      dataType: 'datetime',
+      dataType: 'date',
       dataLength: 20,
       dataPrecision: null,
       dataScale: null,

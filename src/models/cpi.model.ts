@@ -25,27 +25,29 @@ export class cpi extends Entity {
     type: 'string',
     length: 50,
     mssql: {
-      columnName: 'Month',
-      dataType: 'nvarchar',
+      columnName: 'fechaInicial',
+      dataType: 'date',
       dataLength: 20,
       dataPrecision: null,
       dataScale: null,
       nullable: 'YES',
     },
   })
-  Month?: string;
+  fechaInicial?: string;
 
   @property({
     type: 'string',
+    length: 50,
     mssql: {
-      columnName: 'Year',
-      dataType: 'varchar',
+      columnName: 'fechaFinal',
+      dataType: 'date',
+      dataLength: 20,
       dataPrecision: null,
       dataScale: null,
       nullable: 'YES',
     },
   })
-  Year?: number;
+  fechaFinal?: string;
 
   @property({
     type: 'string',
