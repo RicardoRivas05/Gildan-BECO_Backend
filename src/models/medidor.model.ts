@@ -64,48 +64,7 @@ export class Medidor extends Entity {
   })
   descripcion?: string;
 
-  @property({
-    type: 'string',
-    length: 100,
-    mssql: {
-      columnName: 'modelo',
-      dataType: 'varchar',
-      dataLength: 100,
-      dataPrecision: null,
-      dataScale: null,
-      nullable: 'YES',
-    },
-  })
-  modelo?: string;
 
-  @property({
-    type: 'string',
-    length: 100,
-    mssql: {
-      columnName: 'serie',
-      dataType: 'varchar',
-      dataLength: 100,
-      dataPrecision: null,
-      dataScale: null,
-      nullable: 'YES',
-    },
-  })
-  serie?: string;
-
-  @property({
-    type: 'number',
-    precision: 10,
-    scale: 0,
-    mssql: {
-      columnName: 'multiplicador',
-      dataType: 'int',
-      dataLength: null,
-      dataPrecision: 10,
-      dataScale: 0,
-      nullable: 'YES',
-    },
-  })
-  multiplicador?: number;
 
   @property({
     type: 'number',
@@ -150,20 +109,6 @@ export class Medidor extends Entity {
   })
   observacion?: string;
 
-  @property({
-    type: 'number',
-    precision: 10,
-    scale: 0,
-    mssql: {
-      columnName: 'puntoConexion',
-      dataType: 'int',
-      dataLength: null,
-      dataPrecision: 10,
-      dataScale: 0,
-      nullable: 'YES',
-    },
-  })
-  puntoConexion?: number;
 
   @property({
     type: 'boolean',
@@ -177,34 +122,6 @@ export class Medidor extends Entity {
     },
   })
   tipo?: boolean;
-
-  @property({
-    type: 'boolean',
-    mssql: {
-      columnName: 'almacenamientoLocal',
-      dataType: 'bit',
-      dataLength: null,
-      dataPrecision: null,
-      dataScale: null,
-      nullable: 'YES',
-    },
-  })
-  almacenamientoLocal?: boolean;
-
-  @property({
-    type: 'number',
-    precision: 10,
-    scale: 0,
-    mssql: {
-      columnName: 'funcionalidad',
-      dataType: 'int',
-      dataLength: null,
-      dataPrecision: 10,
-      dataScale: 0,
-      nullable: 'YES',
-    },
-  })
-  funcionalidad?: number;
 
   @property({
     type: 'boolean',
