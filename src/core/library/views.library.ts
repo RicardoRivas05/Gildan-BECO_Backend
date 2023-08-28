@@ -1,3 +1,4 @@
+
 export namespace viewOf {
   export const GET_METERS = `SELECT * FROM dbo.GetMonitors`;
   export const GET_Virtual_METERS = `SELECT * FROM dbo.GetVMonitors`;
@@ -36,4 +37,6 @@ export namespace viewOf {
   export const Get_ipc = `SELECT * FROM dbo.IPC`;
   export const getConsumoMedidores = `SELECT * from dbo.getConsumoMedidores`;
   export const getEuroData = `SELECT * from dbo.AccesoEuro`;
+  export const getHorasPunta = `SELECT * from dbo.HorasPunta`;
+  //export const getHorasPunta = `SELECT *, dateadd(hour,+24,fechaInicial) FechaInicial, dateadd (hour,+24,fechaFinal) FechaFinal FROM  dbo.HorasPunta`
 }
