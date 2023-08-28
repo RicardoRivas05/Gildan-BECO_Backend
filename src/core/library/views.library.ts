@@ -38,5 +38,5 @@ export namespace viewOf {
   export const getConsumoMedidores = `SELECT * from dbo.getConsumoMedidores`;
   export const getEuroData = `SELECT * from dbo.AccesoEuro`;
   export const getHorasPunta = `SELECT * from dbo.HorasPunta`;
-  //export const getHorasPunta = `SELECT *, dateadd(hour,+24,fechaInicial) FechaInicial, dateadd (hour,+24,fechaFinal) FechaFinal FROM  dbo.HorasPunta`
+  export const getDollarData = `SELECT * from dbo.AccesoDollar`;
 }
