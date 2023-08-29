@@ -16,11 +16,11 @@ export class ReportService {
     fechaFinal: string,
   ) {
     const inicial = await this.reportRepository.dataSource.execute(
-      `${viewOf.getConsumoMedidores} where quantityID=${id} and TimestampUTC='${fechaInicial}' and sourceID NOT IN(17,13) order by CAST(codigo AS INT)`,
+      `${viewOf.getConsumoMedidores} where quantityID=${id} and (TimestampUTC=dateadd(hour,6,'${fechaInicial}'))  and sourceID NOT IN(17,13) order by CAST(codigo AS INT)`,
     );
 
     const final = await this.reportRepository.dataSource.execute(
-      `${viewOf.getConsumoMedidores} where quantityID=${id} and TimestampUTC='${fechaFinal}' and sourceID NOT IN(17,13) order by CAST(codigo AS INT)`,
+      `${viewOf.getConsumoMedidores} where quantityID=${id} and (TimestampUTC=dateadd(hour,6,'${fechaFinal}')) and sourceID NOT IN(17,13) order by CAST(codigo AS INT)`,
     );
 
     return {inicial, final};

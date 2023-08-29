@@ -62,6 +62,42 @@ export class euro extends Entity {
   Valor?: number;
 
   @property({
+    type: 'string',
+    mssql: {
+      columnName: 'ValorUltimoMes',
+      dataType: 'decimal',
+      dataPrecision: 10,
+      dataScale: 3,
+      nullable: 'YES',
+    },
+  })
+  ValorUltimoMes?: number;
+
+  @property({
+    type: 'string',
+    mssql: {
+      columnName: 'ValorInicial',
+      dataType: 'decimal',
+      dataPrecision: 10,
+      dataScale: 3,
+      nullable: 'YES',
+    },
+  })
+  ValorInicial?: number;
+
+  @property({
+    type: 'string',
+    mssql: {
+      columnName: 'RelacionInflacion',
+      dataType: 'decimal',
+      dataPrecision: 10,
+      dataScale: 6,
+      nullable: 'YES',
+    },
+  })
+  RelacionInflacion?: number;
+
+  @property({
     type: 'boolean',
     required: false,
     mssql: {
