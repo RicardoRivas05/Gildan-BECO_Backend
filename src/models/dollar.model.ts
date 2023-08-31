@@ -52,14 +52,26 @@ export class dollar extends Entity {
   @property({
     type: 'string',
     mssql: {
-      columnName: 'Valor',
+      columnName: 'Compra',
       dataType: 'decimal',
       dataPrecision: 10,
       dataScale: 2,
       nullable: 'YES',
     },
   })
-  Valor?: number;
+  Compra?: number;
+
+  @property({
+    type: 'string',
+    mssql: {
+      columnName: 'Venta',
+      dataType: 'decimal',
+      dataPrecision: 10,
+      dataScale: 2,
+      nullable: 'YES',
+    },
+  })
+  Venta?: number;
 
   @property({
     type: 'boolean',
