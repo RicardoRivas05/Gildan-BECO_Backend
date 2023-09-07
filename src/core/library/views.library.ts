@@ -35,8 +35,8 @@ export namespace viewOf {
   //jk
   export const Get_CPI = `SELECT * FROM dbo.CPI`;
   export const Get_ipc = `SELECT * FROM dbo.IPC`;
-  // export const getConsumoMedidores = `SELECT * from dbo.getConsumoMedidores`;
   export const getConsumoMedidores = `SELECT *, dateadd(hour,-6,TimestampUTC) Fecha from dbo.getConsumoMedidores`
+  export const getCogeneracion = `SELECT *, dateadd(hour,-6,TimestampUTC) Fecha from dbo.getCogeneracion`
   export const getEuroData = `SELECT * from dbo.AccesoEuro`;
   export const getHorasPunta = `SELECT * from dbo.HorasPunta`;
   export const getDollarData = `SELECT * from dbo.AccesoDollar`;

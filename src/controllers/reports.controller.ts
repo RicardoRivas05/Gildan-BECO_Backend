@@ -31,7 +31,7 @@ export class reportController {
     public reportRepository: reportRepository,
     @service(ReportService)
     private ReportService: ReportService,
-  ) {}
+  ) { }
 
   @post('/report')
   @response(200, {
@@ -160,4 +160,14 @@ export class reportController {
   ): Promise<any> {
     return this.ReportService.getReportMedidores(id, fi, ff);
   }
+
+
+  @get('/get-cogeneracion/{fi}/{ff}')
+  async cogeneracion(
+    @param.path.string('fi') fi: string,
+    @param.path.string('ff') ff: string,
+  ): Promise<any> {
+    return this.ReportService.cogeneracion(fi, ff);
+  }
+
 }
