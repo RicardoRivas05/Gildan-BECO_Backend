@@ -52,7 +52,43 @@ export class ReportService {
       `${viewOf.getConsumoMedidores} where quantityID=${quantityID2} AND
       TimestampUTC BETWEEN  dateadd(hour,6,'${fechaInicial}') AND dateadd(hour,6,'${fechaFinal}') and sourceID NOT IN(17,13) ORDER BY CAST(codigo AS INT)`,
     );
+
     return {cogeneracionDel, cogeneracionRec, medidoresSTUDel, medidoresSTURec};
   }
+
+
+  async cogeneracion_12(
+    fechaInicial: string,
+    fechaFinal: string,
+  ) {
+    let quantityID = 130;
+    let quantityID2 = 131;
+    const medidoresPuntaInicial = await this.reportRepository.dataSource.execute(
+      `${viewOf.getCogeneracion} where quantityID=${quantityID2} AND
+      TimestampUTC =  dateadd(hour,6,'${fechaInicial}') ORDER BY CAST(codigo AS INT)`,
+    )
+    const medidoresPuntaFinal = await this.reportRepository.dataSource.execute(
+      `${viewOf.getCogeneracion} where quantityID=${quantityID2} AND
+      TimestampUTC =  dateadd(hour,6,'${fechaFinal}') ORDER BY CAST(codigo AS INT)`,
+    )
+
+
+    const medidoresRestoInicial = await this.reportRepository.dataSource.execute(
+      `${viewOf.getCogeneracion} where quantityID=${quantityID} AND
+      TimestampUTC =  dateadd(hour,6,'${fechaInicial}') ORDER BY CAST(codigo AS INT)`,
+    )
+
+    const medidoresRestoFinal = await this.reportRepository.dataSource.execute(
+      `${viewOf.getCogeneracion} where quantityID=${quantityID} AND
+      TimestampUTC =  dateadd(hour,6,'${fechaFinal}') ORDER BY CAST(codigo AS INT)`,
+    )
+
+    const horaPunta = await this.reportRepository.dataSource.execute(
+      `${viewOf.getHorasPunta} where fechaInicial='${fechaInicial}' AND fechaFinal='${fechaFinal}'`,
+    )
+
+    return {medidoresPuntaInicial, medidoresPuntaFinal, medidoresRestoInicial, medidoresRestoFinal, horaPunta}
+  }
+
 
 }

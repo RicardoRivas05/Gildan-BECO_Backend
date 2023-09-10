@@ -52,14 +52,26 @@ export class horasPunta extends Entity {
   @property({
     type: 'string',
     mssql: {
-      columnName: 'valor',
+      columnName: 'horas',
       dataType: 'Int',
       dataPrecision: null,
       dataScale: null,
       nullable: 'YES',
     },
   })
-  valor?: number;
+  horas?: number;
+
+  @property({
+    type: 'string',
+    mssql: {
+      columnName: 'multiplicador',
+      dataType: 'Int',
+      dataPrecision: null,
+      dataScale: null,
+      nullable: 'YES',
+    },
+  })
+  multiplicador?: number;
 
   @property({
     type: 'boolean',

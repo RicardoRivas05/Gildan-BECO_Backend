@@ -170,4 +170,13 @@ export class reportController {
     return this.ReportService.cogeneracion(fi, ff);
   }
 
+
+  @get('/get-cogeneracion_12/{fi}/{ff}')
+  async cogeneracion_12(
+    @param.path.string('fi') fi: string,
+    @param.path.string('ff') ff: string,
+  ): Promise<any> {
+    return this.ReportService.cogeneracion_12(fi, ff);
+  }
+
 }
