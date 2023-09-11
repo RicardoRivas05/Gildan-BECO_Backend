@@ -41,4 +41,5 @@ export namespace viewOf {
   export const getHorasPunta = `SELECT * from dbo.HorasPunta`;
   export const getDollarData = `SELECT * from dbo.AccesoDollar`;
   export const getCombustibles = `SELECT * from dbo.Combustible`;
+  export const getLecurasEnee = `SELECT * from dbo.GetlecturasENEE`
 }

@@ -87,7 +87,10 @@ export class ReportService {
       `${viewOf.getHorasPunta} where fechaInicial='${fechaInicial}' AND fechaFinal='${fechaFinal}'`,
     )
 
-    return {medidoresPuntaInicial, medidoresPuntaFinal, medidoresRestoInicial, medidoresRestoFinal, horaPunta}
+    const lecturasEnee = await this.reportRepository.dataSource.execute(
+      `${viewOf.getLecurasEnee} where fechaInicial='${fechaInicial}' and fechaFinal='${fechaFinal}'`,
+    )
+    return {medidoresPuntaInicial, medidoresPuntaFinal, medidoresRestoInicial, medidoresRestoFinal, horaPunta, lecturasEnee}
   }
 
 
