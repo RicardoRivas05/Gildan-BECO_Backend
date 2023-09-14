@@ -3,7 +3,6 @@ import {repository} from '@loopback/repository';
 import {viewOf} from '../core/library/views.library';
 import {reportRepository} from '../repositories/reports.repository';
 
-
 @injectable({scope: BindingScope.TRANSIENT})
 export class ReportService {
   constructor(
@@ -56,7 +55,6 @@ export class ReportService {
     return {cogeneracionDel, cogeneracionRec, medidoresSTUDel, medidoresSTURec};
   }
 
-
   async cogeneracion_12(
     fechaInicial: string,
     fechaFinal: string,
@@ -71,7 +69,6 @@ export class ReportService {
       `${viewOf.getCogeneracion} where quantityID=${quantityID2} AND
       TimestampUTC =  dateadd(hour,6,'${fechaFinal}') ORDER BY CAST(codigo AS INT)`,
     )
-
 
     const medidoresRestoInicial = await this.reportRepository.dataSource.execute(
       `${viewOf.getCogeneracion} where quantityID=${quantityID} AND
@@ -90,8 +87,12 @@ export class ReportService {
     const lecturasEnee = await this.reportRepository.dataSource.execute(
       `${viewOf.getLecurasEnee} where fechaInicial='${fechaInicial}' and fechaFinal='${fechaFinal}'`,
     )
-    return {medidoresPuntaInicial, medidoresPuntaFinal, medidoresRestoInicial, medidoresRestoFinal, horaPunta, lecturasEnee}
-  }
 
+    const feriadosHn = await this.reportRepository.dataSource.execute(
+      `${viewOf.getFeriadosHn}`,
+    )
+
+    return {medidoresPuntaInicial, medidoresPuntaFinal, medidoresRestoInicial, medidoresRestoFinal, horaPunta, lecturasEnee, feriadosHn}
+  }
 
 }
