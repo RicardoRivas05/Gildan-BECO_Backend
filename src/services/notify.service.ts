@@ -13,13 +13,13 @@ export class NotifyService {
       port: 587,
       secure: false,
       auth: {
-        user: 'JaredVelasquez@unitec.edu',
-        pass: 'Jaredykaren18'
+        user: 'jramos@falconingenieria.com',
+        pass: 'Estemporal1!'
       }
     });
     if (atachment) {
       mailOptions = {
-        from: 'JaredVelasquez@unitec.edu',
+        from: 'jramos@falconingenieria.com',
         to: `${email}`,
         subject: `${subject}`,
         text: `${content}`,
@@ -32,7 +32,7 @@ export class NotifyService {
 
     } else {
       mailOptions = {
-        from: 'JaredVelasquez@unitec.edu',
+        from: 'jramos@falconingenieria.com',
         to: `${email}`,
         subject: `${subject}`,
         text: `${content}`,
