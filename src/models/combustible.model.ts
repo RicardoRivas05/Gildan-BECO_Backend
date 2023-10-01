@@ -1,7 +1,7 @@
 import {Entity, model, property} from '@loopback/repository';
 
 @model({
-  settings: {idInjection: false, mssql: {schema: 'dbo', table: 'Combustible'}},
+  settings: {idInjection: false, mssql: {schema: 'dbo', table: 'indiceCombustible'}},
 })
 export class combustible extends Entity {
   @property({
@@ -48,41 +48,55 @@ export class combustible extends Entity {
     },
   })
   fechaFinal?: Date;
-  @property({
-    type: 'string',
-    mssql: {
-      columnName: 'precioBase',
-      dataType: 'decimal',
-      dataPrecision: 10,
-      dataScale: 2,
-      nullable: 'YES',
-    },
-  })
-  precioBase?: number;
+
 
   @property({
     type: 'string',
     mssql: {
-      columnName: 'precioBajo',
+      columnName: 'indiceCombustible',
       dataType: 'decimal',
       dataPrecision: 10,
-      dataScale: 2,
+      dataScale: 10,
       nullable: 'YES',
     },
   })
-  precioBajo?: number;
+  indiceCombustible?: number;
 
-  @property({
-    type: 'string',
-    mssql: {
-      columnName: 'precioAlto',
-      dataType: 'decimal',
-      dataPrecision: 10,
-      dataScale: 2,
-      nullable: 'YES',
-    },
-  })
-  precioAlto?: number;
+  // @property({
+  //   type: 'string',
+  //   mssql: {
+  //     columnName: 'precioBase',
+  //     dataType: 'decimal',
+  //     dataPrecision: 10,
+  //     dataScale: 2,
+  //     nullable: 'YES',
+  //   },
+  // })
+  // precioBase?: number;
+
+  // @property({
+  //   type: 'string',
+  //   mssql: {
+  //     columnName: 'precioBajo',
+  //     dataType: 'decimal',
+  //     dataPrecision: 10,
+  //     dataScale: 2,
+  //     nullable: 'YES',
+  //   },
+  // })
+  // precioBajo?: number;
+
+  // @property({
+  //   type: 'string',
+  //   mssql: {
+  //     columnName: 'precioAlto',
+  //     dataType: 'decimal',
+  //     dataPrecision: 10,
+  //     dataScale: 2,
+  //     nullable: 'YES',
+  //   },
+  // })
+  // precioAlto?: number;
 
   @property({
     type: 'boolean',

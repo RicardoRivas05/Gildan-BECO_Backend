@@ -52,7 +52,11 @@ export class ReportService {
       TimestampUTC BETWEEN  dateadd(hour,6,'${fechaInicial}') AND dateadd(hour,6,'${fechaFinal}') and sourceID NOT IN(17,13) ORDER BY CAST(codigo AS INT)`,
     );
 
-    return {cogeneracionDel, cogeneracionRec, medidoresSTUDel, medidoresSTURec};
+    const feriadosHn = await this.reportRepository.dataSource.execute(
+      `${viewOf.getFeriadosHn} where estado=1`,
+    )
+
+    return {cogeneracionDel, cogeneracionRec, medidoresSTUDel, medidoresSTURec, feriadosHn};
   }
 
   async cogeneracion_12(
@@ -85,14 +89,53 @@ export class ReportService {
     )
 
     const lecturasEnee = await this.reportRepository.dataSource.execute(
-      `${viewOf.getLecurasEnee} where fechaInicial='${fechaInicial}' and fechaFinal='${fechaFinal}'`,
+      `${viewOf.getLecurasEnee} where fechaInicial='${fechaInicial}'`,
     )
 
-    const feriadosHn = await this.reportRepository.dataSource.execute(
-      `${viewOf.getFeriadosHn}`,
+    return {medidoresPuntaInicial, medidoresPuntaFinal, medidoresRestoInicial, medidoresRestoFinal, horaPunta, lecturasEnee}
+  }
+
+
+  async enersa227(fechaInicial: string, fechaFinal: string) {
+    const correlativo = await this.reportRepository.dataSource.execute(
+      `${viewOf.getCorrelativos} where Fecha='${fechaInicial}'`,
     )
 
-    return {medidoresPuntaInicial, medidoresPuntaFinal, medidoresRestoInicial, medidoresRestoFinal, horaPunta, lecturasEnee, feriadosHn}
+    const contrato = await this.reportRepository.dataSource.execute(
+      `${viewOf.getVariablesContratos}`,
+
+    );
+
+
+    const cpi = await this.reportRepository.dataSource.execute(
+      `${viewOf.Get_CPI} WHERE fechaInicial = '${fechaInicial}' and fechaFinal = '${fechaFinal}'`,
+
+    );
+
+    const ipc = await this.reportRepository.dataSource.execute(
+      `${viewOf.Get_ipc} WHERE fechaInicial = '${fechaInicial}' and fechaFinal = '${fechaFinal}'`,
+
+    );
+
+    const combustible = await this.reportRepository.dataSource.execute(
+      `${viewOf.getCombustibles} WHERE fechaInicial = '${fechaInicial}' and fechaFinal = '${fechaFinal}'`,
+
+    );
+
+    const cambioDolar = await this.reportRepository.dataSource.execute(
+      `${viewOf.getDollarData} WHERE fechaInicial = '${fechaInicial}' and fechaFinal = '${fechaFinal}'`,
+
+    );
+
+    const euro = await this.reportRepository.dataSource.execute(
+      `${viewOf.getEuroData} WHERE fechaInicial = '${fechaInicial}' and fechaFinal = '${fechaFinal}'`,
+
+    );
+
+    console.log("euro ", euro);
+
+    return {correlativo, contrato, cpi, ipc, combustible, cambioDolar, euro};
+
   }
 
 }

@@ -40,7 +40,10 @@ export namespace viewOf {
   export const getEuroData = `SELECT * from dbo.AccesoEuro`;
   export const getHorasPunta = `SELECT * from dbo.HorasPunta`;
   export const getDollarData = `SELECT * from dbo.AccesoDollar`;
-  export const getCombustibles = `SELECT * from dbo.Combustible`;
+  // export const getCombustibles = `SELECT * from dbo.Combustible`;
+  export const getCombustibles = `SELECT * from dbo.indiceCombustible`;
   export const getLecurasEnee = `SELECT * from dbo.GetlecturasENEE`
-  export const getFeriadosHn = 'SELECT * from dbo.feriadosHn';
+  export const getFeriadosHn = `SELECT * from dbo.feriadosHn`;
+  export const getVariablesContratos = `SELECT * from dbo.variablesContrato`;
+  export const getCorrelativos = `SELECT * from dbo.Correlativos`
 }

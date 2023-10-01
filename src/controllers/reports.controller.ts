@@ -179,4 +179,13 @@ export class reportController {
     return this.ReportService.cogeneracion_12(fi, ff);
   }
 
+
+  @get('/get-enersa227/{fi}/{ff}')
+  async enersa227(
+    @param.path.string('fi') fi: string,
+    @param.path.string('ff') ff: string,
+  ): Promise<any> {
+    return this.ReportService.enersa227(fi, ff);
+  }
+
 }
