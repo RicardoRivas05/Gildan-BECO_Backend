@@ -4,8 +4,8 @@ import {juggler} from '@loopback/repository';
 const config = {
   name: 'GestionEDBO',
   connector: 'mssql',
-  url: 'mssql://sa:admin1@FI-IT-J/pruebas/EnersaReport',
-  host: 'FI-IT-J',
+  url: 'mssql://sa:admin1@JOKSAN-IT/pruebas/EnersaReport',
+  host: 'JOKSAN-IT',
   port: 1433,
   user: 'sa',
   password: 'admin1',
