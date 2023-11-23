@@ -92,7 +92,12 @@ export class ReportService {
       `${viewOf.getLecurasEnee} where fechaInicial='${fechaInicial}'`,
     )
 
-    return {medidoresPuntaInicial, medidoresPuntaFinal, medidoresRestoInicial, medidoresRestoFinal, horaPunta, lecturasEnee}
+
+    const feriadosHn = await this.reportRepository.dataSource.execute(
+      `${viewOf.getFeriadosHn} where estado=1`,
+    )
+
+    return {medidoresPuntaInicial, medidoresPuntaFinal, medidoresRestoInicial, medidoresRestoFinal, horaPunta, lecturasEnee, feriadosHn}
   }
 
 
