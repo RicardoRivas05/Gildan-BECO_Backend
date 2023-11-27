@@ -1,7 +1,7 @@
 import {inject} from '@loopback/core';
 import {DefaultCrudRepository} from '@loopback/repository';
 import {GestionEdboDataSource} from '../datasources';
-import {Credenciales, CredencialesRelations} from '../models';
+import {Credenciales, CredencialesRelations} from '../models/credenciales.model';
 
 export class CredencialesRepository extends DefaultCrudRepository<
   Credenciales,

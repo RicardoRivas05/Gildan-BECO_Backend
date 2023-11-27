@@ -1,10 +1,13 @@
 import { /* inject, */ BindingScope, injectable, service} from '@loopback/core/dist';
 import {repository} from '@loopback/repository';
 import {LoginInterface} from '../core/interfaces/models/Login.interface';
-import {credentialShema, RegisterUserInterface} from '../core/interfaces/models/RegisterUser.interface';
+import {RegisterUserInterface, credentialShema} from '../core/interfaces/models/RegisterUser.interface';
 import {error} from '../core/library/errors.library';
-import {Credenciales, Usuario} from '../models';
-import {ActoresRepository, CodigoVerificacionRepository, CredencialesRepository, UsuarioRepository} from '../repositories';
+import {Credenciales} from '../models/credenciales.model';
+import {Usuario} from '../models/usuario.model';
+import {CodigoVerificacionRepository} from '../repositories/codigo-verificacion.repository';
+import {CredencialesRepository} from '../repositories/credenciales.repository';
+import {UsuarioRepository} from '../repositories/usuario.repository';
 import {EncriptDecryptService} from './encript-decrypt.service';
 import {JWTService} from './jwt.service';
 var shortid = require('shortid-36');
@@ -20,8 +23,7 @@ export class AuthService {
     private usuarioRepository: UsuarioRepository,
     @service(JWTService)
     private jwtService: JWTService,
-    @repository(ActoresRepository)
-    private actoresRepository: ActoresRepository,
+
     @service(EncriptDecryptService)
     private encriptDecryptService: EncriptDecryptService,
 

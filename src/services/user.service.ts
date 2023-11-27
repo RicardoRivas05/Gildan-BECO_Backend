@@ -1,6 +1,6 @@
 import {repository} from '@loopback/repository';
 import {HttpErrors} from '@loopback/rest';
-import {CredencialesRepository} from '../repositories';
+import {CredencialesRepository} from '../repositories/credenciales.repository';
 
 export class UserService {
   @repository(CredencialesRepository)

@@ -1,7 +1,7 @@
 {
-  "name": "enersareport",
+  "name": "GildanConstancias",
   "version": "0.0.1",
-  "description": "enersareport",
+  "description": "GildanConstancias",
   "keywords": [
     "loopback-application",
     "loopback"
@@ -36,8 +36,8 @@
     "test": "lb-mocha --allow-console-logs \"dist/__tests__\"",
     "posttest": "npm run lint",
     "test:dev": "lb-mocha --allow-console-logs dist/__tests__/**/*.js && npm run posttest",
-    "docker:build": "docker build -t enersareport .",
-    "docker:run": "docker run -p 3000:3000 -d enersareport",
+    "docker:build": "docker build -t GildanConstancias .",
+    "docker:run": "docker run -p 3000:3000 -d GildanConstancias",
     "premigrate": "npm run build",
     "migrate": "node ./dist/migrate",
     "preopenapi-spec": "npm run build",
@@ -52,7 +52,7 @@
     "type": "git",
     "url": ""
   },
-  "author": "JaredVelasquez <jared.velasquez1122@gmail.com>",
+  "author": "Joksan Ramos <j.ramos@falconingenieria.com>",
   "license": "",
   "files": [
     "README.md",

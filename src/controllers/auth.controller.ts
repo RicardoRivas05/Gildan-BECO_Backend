@@ -8,8 +8,9 @@ import {
   response
 } from '@loopback/rest';
 import {LoginInterface} from '../core/interfaces/models/Login.interface';
-import {credentialShema, RegisterUserInterface, resetPassword} from '../core/interfaces/models/RegisterUser.interface';
-import {CredencialesRepository, UsuarioRepository} from '../repositories';
+import {RegisterUserInterface, credentialShema, resetPassword} from '../core/interfaces/models/RegisterUser.interface';
+import {CredencialesRepository} from '../repositories/credenciales.repository';
+import {UsuarioRepository} from '../repositories/usuario.repository';
 import {AuthService, JWTService} from '../services';
 
 export class AuthController {
