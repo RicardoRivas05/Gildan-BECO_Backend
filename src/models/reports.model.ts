@@ -24,12 +24,26 @@ export class report extends Entity {
   })
   sourceID: number;
 
+
+  @property({
+    type: 'string',
+    mssql: {
+      columnName: 'displayName',
+      dataType: 'varchar',
+      dataPrecision: null,
+      dataScale: null,
+      nullable: 'YES',
+    },
+  })
+  displayName?: string;
+
+
   @property({
     type: 'string',
     length: 50,
     mssql: {
       columnName: 'TimestampUTC',
-      dataType: 'daterime2',
+      dataType: 'datetime',
       dataLength: 20,
       dataPrecision: null,
       dataScale: null,
@@ -50,17 +64,7 @@ export class report extends Entity {
   })
   sourceName?: string;
 
-  @property({
-    type: 'string',
-    mssql: {
-      columnName: 'Signature',
-      dataType: 'varchar',
-      dataPrecision: null,
-      dataScale: null,
-      nullable: 'YES',
-    },
-  })
-  Signature?: string;
+
 
   @property({
     type: 'number',
@@ -102,30 +106,6 @@ export class report extends Entity {
     },
   })
   Value?: number;
-
-  @property({
-    type: 'string',
-    mssql: {
-      columnName: 'codigo',
-      dataType: 'varchar',
-      dataPrecision: null,
-      dataScale: null,
-      nullable: 'YES',
-    },
-  })
-  codigo?: string;
-
-  @property({
-    type: 'string',
-    mssql: {
-      columnName: 'TipoMedidor',
-      dataType: 'varchar',
-      dataPrecision: null,
-      dataScale: null,
-      nullable: 'YES',
-    },
-  })
-  TipoMedidor?: string;
 
   // Define well-known properties here
 

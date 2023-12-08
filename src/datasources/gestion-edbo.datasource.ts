@@ -4,12 +4,12 @@ import {juggler} from '@loopback/repository';
 const config = {
   name: 'GestionEDBO',
   connector: 'mssql',
-  url: 'mssql://sa:admin1@JOKSAN-IT/pruebas/EnersaReport',
+  url: 'mssql://sa:admin1@JOKSAN-IT/GILDAN/GildanConstancias',
   host: 'JOKSAN-IT',
   port: 1433,
   user: 'sa',
   password: 'admin1',
-  database: 'EnersaReport',
+  database: 'GildanConstancias',
   options: {
     enableArithAbort: true,
   },

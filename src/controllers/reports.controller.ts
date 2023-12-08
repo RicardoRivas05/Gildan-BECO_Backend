@@ -152,40 +152,13 @@ export class reportController {
     await this.reportRepository.deleteById(id);
   }
 
-  @get('/get-report/{id}/{fi}/{ff}')
-  async Getreport(
-    @param.path.number('id') id: number,
+
+  @get('/get-dataMedidores/{fi}/{ff}')
+  async dataMedidores(
     @param.path.string('fi') fi: string,
     @param.path.string('ff') ff: string,
   ): Promise<any> {
-    return this.ReportService.getReportMedidores(id, fi, ff);
-  }
-
-
-  @get('/get-cogeneracion/{fi}/{ff}')
-  async cogeneracion(
-    @param.path.string('fi') fi: string,
-    @param.path.string('ff') ff: string,
-  ): Promise<any> {
-    return this.ReportService.cogeneracion(fi, ff);
-  }
-
-
-  @get('/get-cogeneracion_12/{fi}/{ff}')
-  async cogeneracion_12(
-    @param.path.string('fi') fi: string,
-    @param.path.string('ff') ff: string,
-  ): Promise<any> {
-    return this.ReportService.cogeneracion_12(fi, ff);
-  }
-
-
-  @get('/get-enersa227/{fi}/{ff}')
-  async enersa227(
-    @param.path.string('fi') fi: string,
-    @param.path.string('ff') ff: string,
-  ): Promise<any> {
-    return this.ReportService.enersa227(fi, ff);
+    return this.ReportService.dataMedidores(fi, ff);
   }
 
 }
