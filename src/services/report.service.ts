@@ -191,9 +191,12 @@ export class ReportService {
 
     //resumen BECO-GILDAN
     let energiaActivaBG = 0
+    let energiaActivaBGIntervalo = 0
     let energiaReactivaBG = 0;
+    let energiaReactivaBGIntervalo = 0;
     let factorPotenciaBG = 0.0;
     let demandaBG = 0;
+    let demandaBGIntervalo = 0;
 
     //Resumen ENEE-GILDAN
     let energiaActivaEG = 0;
@@ -559,19 +562,20 @@ export class ReportService {
       }
       EACT_F = (MTG2P_H + MTG2R_S) / 2;
 
+      //Aqui cambie los medidores de BECO.MTG3_P a BECO.MTG2_P
       //CALCULANDO COLUMNA G DE EACT
-      if (dataM[i].displayName === 'BECO.MTG3_P' && dataM[i].quantityID === 134) {
+      if (dataM[i].displayName === 'BECO.MTG2_P' && dataM[i].quantityID === 134) {
         MTG3P_G += dataM[i].Value;
       }
-      if (dataM[i].displayName === 'BECO.MTG3_R' && dataM[i].quantityID === 134) {
+      if (dataM[i].displayName === 'BECO.MTG2_R' && dataM[i].quantityID === 134) {
         MTG3R_R += dataM[i].Value;
       }
       EACT_G = (MTG3P_G + MTG3R_R) / 2;
       //CALCULANDO COLUMNA H DE EACT
-      if (dataM[i].displayName === 'BECO.MTG3_P' && dataM[i].quantityID === 144) {
+      if (dataM[i].displayName === 'BECO.MTG2_P' && dataM[i].quantityID === 144) {
         MTG3P_H += dataM[i].Value;
       }
-      if (dataM[i].displayName === 'BECO.MTG3_R' && dataM[i].quantityID === 144) {
+      if (dataM[i].displayName === 'BECO.MTG2_R' && dataM[i].quantityID === 144) {
         MTG3R_S += dataM[i].Value;
       }
       EACT_H = (MTG3P_H + MTG3R_S) / 2;
@@ -587,9 +591,6 @@ export class ReportService {
         EACT_AN = EACT_AG;
       }
 
-      // console.log("Valores: ", EACT_AN, ' ', EACT_AG, ' ', EACT_AE);
-
-
       //Revisar esto!!!
       //caculando la col AH de la hoja EAC
       if (EACT_AE != 0) {
@@ -600,12 +601,8 @@ export class ReportService {
       if (EACT_AG == 0) {
         EACT_AI = 0;
         sumEACT_AI += EACT_AI;
-        // } else {
-        //   EACT_AI = (EACT_AH * EACT_N) / EACT_AG;
-        //   sumEACT_AI += EACT_AI;
       }
     }
-
 
     //GILDAN-ENEE ENERGIA REACTIVA
 
@@ -710,6 +707,67 @@ export class ReportService {
       }
     }
 
+    //Energia Activa BEGO-GILDAN por intervalos
+    let EACT_menor = 0;
+    let EACT_mayor = 0;
+
+    if (EACT_AE < EACT_AG) {
+      EACT_menor = EACT_AE
+    } else {
+      EACT_menor = EACT_AG
+    }
+
+    if (EACT_menor < 0) {
+      EACT_mayor = 0;
+    } else {
+      EACT_mayor = EACT_menor;
+    }
+
+
+    //Energia reactiva por intervalo BECO-GILDAN
+    let ERCT_Menor = 0;
+    let ERCT_Mayor = 0;
+
+    if (ERCT_AE < ERCT_AG) {
+      ERCT_Menor = ERCT_AE
+    } else {
+      ERCT_Menor = ERCT_AG
+    }
+
+    if (ERCT_Menor < 0) {
+      ERCT_Mayor = 0;
+    } else {
+      ERCT_Mayor = ERCT_Menor;
+    }
+
+    //Demanda BECO-GILDAN por intervalos
+    let DEM_Menor = 0;
+    let DEM_Mayor = 0;
+
+    if (DEM_V < DEM_X) {
+      DEM_Menor = DEM_V
+    } else {
+      DEM_Menor = DEM_X
+    }
+
+    // console.log(DEM_V, DEM_X)
+
+    if (DEM_Menor < 0) {
+      DEM_Mayor = 0;
+    } else {
+      DEM_Mayor = DEM_Menor;
+    }
+
+
+
+
+    energiaActivaBGIntervalo = EACT_mayor;
+    energiaReactivaBGIntervalo = ERCT_Mayor;
+    demandaBGIntervalo = DEM_Mayor;
+
+    console.log('Energia Activa BG_Int :', energiaActivaBGIntervalo.toFixed(2))
+    console.log('Energia Reactiva BG_Int :', energiaReactivaBGIntervalo.toFixed(2))
+    console.log('Demanda BG_Int :', demandaBGIntervalo.toFixed(2))
 
 
     energiaActivaBG = (diferenciaActivaT577P + diferenciaActivaT577R) / 2 + (diferenciaActivaPT578 + diferenciaActivaRT578) / 2;
