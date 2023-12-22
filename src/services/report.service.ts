@@ -5,6 +5,22 @@ import {viewOf} from '../core/library/views.library';
 import {reportRepository} from '../repositories/reports.repository';
 
 
+//Funcion para calcular la raiz cuadrada de los valores BigInt del F.P
+function sqrtNewton(b: bigint, precision: number = 64): bigint {
+  if (b < 0n) {
+    throw new Error("Cannot calculate square root of a negative number");
+  }
+
+  let x = b;
+
+  for (let i = 0; i < precision; i++) {
+    x = (x + b / x) >> 1n;
+  }
+
+  return x;
+}
+
+
 @injectable({scope: BindingScope.TRANSIENT})
 export class ReportService {
   constructor(
@@ -28,11 +44,16 @@ export class ReportService {
     //BE-T577 //Hoja MT577
     let MT577P_G = 0;
     let MT577R_R = 0;
+    let MT577_I = 0;
+    let MT577_T = 0;
+
 
 
     //BE-T578 //Hoja MT578
     let MT578P_G = 0;
     let MT578R_R = 0;
+    let MT578P_I = 0;
+    let MT578R_T = 0;
     let EACT_O = 0;
     let totalEACT_O = 0;
 
@@ -46,10 +67,28 @@ export class ReportService {
     let EACT_H = 0;
     let EACT_AG = 0;
     let EACT_AE = 0;
+    let EACT_AN = 0;
     let EACT_AH: number = 0;
     let sumEACT_AH = 0;
     let EACT_AI = 0;
     let sumEACT_AI = 0;
+
+    //hoja ERCT
+    let ERCT_N = 0;
+    let ERCT_O = 0;
+    let ERCT_C = 0;
+    let ERCT_D = 0;
+    let ERCT_E = 0;
+    let ERCT_F = 0;
+    let ERCT_G = 0;
+    let ERCT_H = 0;
+    let ERCT_AG = 0;
+    let ERCT_AE = 0;
+    let ERCT_AN = 0;
+    let ERCT_AH: number = 0;
+    let sumERCT_AH = 0;
+    let ERCT_AI = 0;
+    let sumERCT_AI = 0;
 
 
     //hoja MTG1
@@ -57,16 +96,40 @@ export class ReportService {
     let MTG1R_R = 0;
     let MTG1P_H = 0;
     let MTG1R_S = 0;
+    let MTG1P_I = 0;
+    let MTG1R_T = 0;
+    let MTG1P_J = 0;
+    let MTG1R_U = 0;
+    let demandaMTG1_P = 0;
+    let demandaMTG1_R = 0;
+    let MTG1_B = 0;
+    let MTG1_M = 0;
+
+
+
     //hoja MTG2
     let MTG2P_G = 0;
     let MTG2R_R = 0;
     let MTG2P_H = 0;
     let MTG2R_S = 0;
+    let MTG2P_I = 0;
+    let MTG2R_T = 0;
+    let MTG2P_J = 0;
+    let MTG2R_U = 0;
+    let demandaMTG2_P = 0;
+    let demandaMTG2_R = 0;
+
     //hoja MTG3
     let MTG3P_G = 0;
     let MTG3R_R = 0;
     let MTG3P_H = 0;
     let MTG3R_S = 0;
+    let MTG3P_I = 0;
+    let MTG3R_T = 0;
+    let MTG3P_J = 0;
+    let MTG3R_U = 0;
+    let demandaMTG3_P = 0;
+    let demandaMTG3_R = 0;
 
 
     // hoja TOT
@@ -110,7 +173,7 @@ export class ReportService {
     let demandaT578R = 0;
 
     //Variables globales
-    let sourceId: number[] = [8, 9, 17, 16];
+    let sourceId: number[] = [8, 9, 17, 16, 19, 11, 14, 10];
     let fechaInicialMoment = moment(fechaInicial);
     fechaInicialMoment.add(15, 'minutes');
     let fechaInicial2 = fechaInicialMoment.format('YYYY-MM-DD HH:mm:ss.SSS');
@@ -129,19 +192,31 @@ export class ReportService {
     //resumen BECO-GILDAN
     let energiaActivaBG = 0
     let energiaReactivaBG = 0;
-    let factorPotenciaBG = 0;
+    let factorPotenciaBG = 0.0;
     let demandaBG = 0;
 
+    //Resumen ENEE-GILDAN
+    let energiaActivaEG = 0;
+    let energiaReactivaEG = 0;
+    // let factorPotenciaEG = 0;
+    let demandaEG = 0;
 
+    //Hoja DEM
+    let DEM_C = 0;
+    let DEM_D = 0;
+    let DEM_E = 0;
+    let DEM_I = 0;
+    let DEM_J = 0;
+    let DEM_X = 0;
+    let DEM_V = 0;
+    let DEM_AE = 0;
 
-    console.log("mes ", mes)
-    console.log("anio", anio)
 
     const Energy = await this.reportRepository.dataSource.execute(
       `${viewOf.getMedidores}   where (TimestampUTC = dateadd(hour,6,'${fechaInicial}') or TimestampUTC =  dateadd(hour,6,'${fechaFinal}'));`,
     );
     const dataM = await this.reportRepository.dataSource.execute(
-      `${viewOf.getMedidores}   WHERE TimestampUTC BETWEEN dateadd(hour, 6, '${fechaInicial2}') AND dateadd(hour, 6, '${fechaFinal}');`,
+      `${viewOf.getMedidores}   WHERE TimestampUTC BETWEEN dateadd(hour, 6, '${fechaInicial2}') AND dateadd(hour, 6, '${fechaFinal}') and quantityID in (134, 144, 91, 96, 101, 106);`,
     );
 
     const diferenciaIntervalos = await this.reportRepository.dataSource.execute(
@@ -165,6 +240,7 @@ export class ReportService {
         diferenciaActivaT578R += diferenciaIntervalos[i].Value;
       }
     }
+
     //Reactiva
     for (let i = 0; i < diferenciaIntervalosReactiva.length; i++) {
 
@@ -364,7 +440,7 @@ export class ReportService {
     for (let i = 0; i < sourceId.length; i++) {
       let id = sourceId[i];
       const demanda = await this.reportRepository.dataSource.execute(
-        `${viewOf.getDemanda}   WHERE TimestampUTC BETWEEN dateadd(hour, 6, '${fechaInicial}') AND dateadd(hour, 6, '${fechaFinal}')  AND sourceID =${id} AND quantityID=107 ORDER BY Value DESC;`,
+        `${viewOf.getDemanda}  WHERE TimestampUTC BETWEEN dateadd(hour, 6, '${fechaInicial}') AND dateadd(hour, 6, '${fechaFinal}')  AND sourceID =${id} AND quantityID=107 ORDER BY Value DESC;`,
       )
       let value = demanda[0].Value;
       if (demanda[0].displayName === 'RIONANCESE.MT577_P') {
@@ -375,12 +451,48 @@ export class ReportService {
         demandaT578P = value;
       } else if (demanda[0].displayName === 'RIONANCESE.MT578_R') {
         demandaT578R = value;
+      } else if (demanda[0].displayName === 'BECO.MTG1_P') {
+        demandaMTG1_P = value;
+      } else if (demanda[0].displayName === 'BECO.MTG1_R') {
+        demandaMTG1_R = value;
+      } else if (demanda[0].displayName === 'BECO.MTG2_P') {
+        demandaMTG2_P = value;
+        demandaMTG3_P = value;
+      } else if (demanda[0].displayName === 'BECO.MTG2_R') {
+        demandaMTG2_R = value;
+        demandaMTG3_R = value;
       }
     }
 
+    //DEMANDA GILDAN-ENEE
+    //Columna DEM-X
+    DEM_I = (demandaT577P + demandaT577R) / 2;
+    DEM_J = (demandaT578P + demandaT578R) / 2;
+    DEM_X = DEM_I + DEM_J;
 
-    //GILDAN-BECO
+    //Columna Dem-V
+
+    DEM_C = (demandaMTG1_P + demandaMTG1_R) / 2;
+    DEM_D = (demandaMTG2_P + demandaMTG2_R) / 2;
+    DEM_E = (demandaMTG3_P + demandaMTG3_R) / 2;
+
+    DEM_V = DEM_C + DEM_D + DEM_E
+
+    //COLUMNA DEM-AE
+    if (DEM_V >= 0) {
+      DEM_X - DEM_V < 0
+        ? DEM_AE = 0
+        : DEM_AE = DEM_X - DEM_V
+    } else {
+      DEM_AE = DEM_X
+    }
+
+
+    //Apartir de aqui...
+    //GILDAN-ENEE
     //BE-T577
+
+    // console.log(dataM[0])
     for (let i = 0; i < dataM.length; i++) {
       if (dataM[i].displayName === 'RIONANCESE.MT577_P' && dataM[i].quantityID === 134) {
         MT577P_G += dataM[i].Value;
@@ -393,15 +505,19 @@ export class ReportService {
       //BE-T578
       if (dataM[i].displayName === 'RIONANCESE.MT578_P' && dataM[i].quantityID === 134) {
         MT578P_G += dataM[i].Value;
+        // console.log(dataM[i].Value)
+
+
       } else if (dataM[i].displayName === 'RIONANCESE.MT578_R' && dataM[i].quantityID === 134) {
         MT578R_R += dataM[i].Value;
+        // console.log("T578R: ", MT578R_R)
       }
       // console.log("MT578R_R--------------", MT578R_R)
       EACT_O = (MT578P_G + MT578R_R) / 2;
 
       //AG SUMA DE N+O
       EACT_AG = EACT_N + EACT_O;
-
+      //Hasta aqui todo Bien
 
       //CALCULANDO COLUMNA C DE EACT
       if (dataM[i].displayName === 'BECO.MTG1_P' && dataM[i].quantityID === 134) {
@@ -426,25 +542,25 @@ export class ReportService {
 
 
       //CALCULANDO COLUMNA E DE EACT
-      if (dataM[i].displayName === 'BECO.MTG2_P' && dataM[i].quantityID === 144) {
+      if (dataM[i].displayName === 'BECO.MTG2_P' && dataM[i].quantityID === 134) {
         MTG2P_G += dataM[i].Value;
       }
-      if (dataM[i].displayName === 'BECO.MTG2_R' && dataM[i].quantityID === 144) {
+      if (dataM[i].displayName === 'BECO.MTG2_R' && dataM[i].quantityID === 134) {
         MTG2R_R += dataM[i].Value;
       }
       EACT_E = (MTG2P_G + MTG2R_R) / 2;
 
       //CALCULANDO COLUMNA F DE EACT
-      if (dataM[i].displayName === 'BECO.MTG2_P' && dataM[i].quantityID === 139) {
+      if (dataM[i].displayName === 'BECO.MTG2_P' && dataM[i].quantityID === 144) {
         MTG2P_H += dataM[i].Value;
       }
-      if (dataM[i].displayName === 'BECO.MTG2_R' && dataM[i].quantityID === 139) {
+      if (dataM[i].displayName === 'BECO.MTG2_R' && dataM[i].quantityID === 144) {
         MTG2R_S += dataM[i].Value;
       }
       EACT_F = (MTG2P_H + MTG2R_S) / 2;
 
       //CALCULANDO COLUMNA G DE EACT
-      if (dataM[i].displayName === 'BECO.MTG3_P' && dataM[i].quantityID === 144) {
+      if (dataM[i].displayName === 'BECO.MTG3_P' && dataM[i].quantityID === 134) {
         MTG3P_G += dataM[i].Value;
       }
       if (dataM[i].displayName === 'BECO.MTG3_R' && dataM[i].quantityID === 134) {
@@ -461,6 +577,20 @@ export class ReportService {
       EACT_H = (MTG3P_H + MTG3R_S) / 2;
       EACT_AE = (EACT_C - EACT_D) + (EACT_E - EACT_F) + (EACT_G - EACT_H);
 
+      //Calculo de la columna EACT-AN
+      if (EACT_AE >= 0) {
+        EACT_AG - EACT_AE < 0
+          ? EACT_AN = 0
+          : EACT_AN = EACT_AG - EACT_AE
+      }
+      else {
+        EACT_AN = EACT_AG;
+      }
+
+      // console.log("Valores: ", EACT_AN, ' ', EACT_AG, ' ', EACT_AE);
+
+
+      //Revisar esto!!!
       //caculando la col AH de la hoja EAC
       if (EACT_AE != 0) {
         EACT_AH = Math.max(0, Math.min(EACT_AE, EACT_AG));
@@ -474,22 +604,157 @@ export class ReportService {
         //   EACT_AI = (EACT_AH * EACT_N) / EACT_AG;
         //   sumEACT_AI += EACT_AI;
       }
-
-      console.log("summmmm AI ", sumEACT_AI);
-
-
-      //577 ENEE
-      if (EACT_AE > 0) {
-
-      }
     }
 
+
+    //GILDAN-ENEE ENERGIA REACTIVA
+
+    //Calculo columna ERCT-AG
+    for (let i = 0; i < dataM.length; i++) {
+      if (dataM[i].displayName === 'RIONANCESE.MT577_P' && dataM[i].quantityID === 96) {
+        MT577_I += dataM[i].Value
+      }
+
+      if (dataM[i].displayName === 'RIONANCESE.MT577_R' && dataM[i].quantityID === 96) {
+        MT577_T += dataM[i].Value
+      }
+
+      ERCT_N = (MT577_I + MT577_T) / 2;
+
+      if (dataM[i].displayName === 'RIONANCESE.MT578_P' && dataM[i].quantityID === 96) {
+        MT578P_I += dataM[i].Value;
+      }
+
+      if (dataM[i].displayName === 'RIONANCESE.MT578_R' && dataM[i].quantityID === 96) {
+        MT578R_T += dataM[i].Value;
+      }
+
+      ERCT_O = (MT578P_I + MT578R_T) / 2;
+
+      ERCT_AG = ERCT_N + ERCT_O;
+
+
+      //Calculos columna ERCT-AE ENERGIA REACTIVA
+      //COLUMNA C
+      if (dataM[i].displayName === 'BECO.MTG1_P' && dataM[i].quantityID === 96) {
+        MTG1P_I += dataM[i].Value;
+      }
+
+      if (dataM[i].displayName === 'BECO.MTG1_R' && dataM[i].quantityID === 96) {
+        MTG1R_T += dataM[i].Value;
+      }
+
+      ERCT_C = (MTG1P_I + MTG1R_T) / 2;
+
+      //Calculo Columna ERCT-D
+
+      if (dataM[i].displayName === 'BECO.MTG1_P' && dataM[i].quantityID === 106) {
+        MTG1P_J += dataM[i].Value;
+      }
+      if (dataM[i].displayName === 'BECO.MTG1_R' && dataM[i].quantityID === 106) {
+        MTG1R_U += dataM[i].Value;
+      }
+
+      ERCT_D = (MTG1P_J + MTG1R_U) / 2;
+
+      //Calculo Columna ERCT-E
+      if (dataM[i].displayName === 'BECO.MTG2_P' && dataM[i].quantityID === 96) {
+        MTG2P_I += dataM[i].Value;
+      }
+
+      if (dataM[i].displayName === 'BECO.MTG2_R' && dataM[i].quantityID === 96) {
+        MTG2R_T += dataM[i].Value;
+      }
+
+      ERCT_E = (MTG2P_I + MTG2R_T) / 2;
+
+      //Calculo columna F
+      if (dataM[i].displayName === 'BECO.MTG2_P' && dataM[i].quantityID === 106) {
+        MTG2P_J += dataM[i].Value;
+      }
+
+      if (dataM[i].displayName === 'BECO.MTG2_R' && dataM[i].quantityID === 106) {
+        MTG2R_U += dataM[i].Value;
+      }
+
+      ERCT_F = (MTG2P_J + MTG2R_U) / 2;
+
+      //Calculo columna G
+      if (dataM[i].displayName === 'BECO.MTG2_P' && dataM[i].quantityID === 96) {
+        MTG3P_I += dataM[i].Value;
+      }
+      if (dataM[i].displayName === 'BECO.MTG2_R' && dataM[i].quantityID === 96) {
+        MTG3R_T += dataM[i].Value;
+      }
+
+      ERCT_G = (MTG3P_I + MTG3R_T) / 2;
+
+      //Calculo Columna H
+      if (dataM[i].displayName === 'BECO.MTG2_P' && dataM[i].quantityID === 106) {
+        MTG3P_J += dataM[i].Value;
+      }
+      if (dataM[i].displayName === 'BECO.MTG2_R' && dataM[i].quantityID === 106) {
+        MTG3R_U += dataM[i].Value;
+      }
+
+      ERCT_H = (MTG3P_J + MTG3R_U) / 2;
+
+      ERCT_AE = (ERCT_C - ERCT_D) + (ERCT_E - ERCT_F) + (ERCT_G - ERCT_H)
+
+      if (ERCT_AE >= 0) {
+        ERCT_AG - ERCT_AE > 0
+          ? ERCT_AN = (ERCT_AG - ERCT_AE)
+          : ERCT_AN = 0
+      } else {
+        ERCT_AN = ERCT_AG;
+      }
+    }
 
 
 
     energiaActivaBG = (diferenciaActivaT577P + diferenciaActivaT577R) / 2 + (diferenciaActivaPT578 + diferenciaActivaRT578) / 2;
     energiaReactivaBG = (diferenciaReactivaT577P + diferenciaReactivaT577R) / 2 + (diferenciaReactivaPT578 + diferenciaReactivaRT578) / 2;
     demandaBG = (demandaT577P + demandaT577R) / 2 + (demandaT578P + demandaT578R) / 2;
+
+
+    energiaActivaEG = EACT_AN;
+    energiaReactivaEG = ERCT_AN;
+    demandaEG = DEM_AE;
+    let factorPotenciaEG = 0.0;
+
+    //Calculo del Factor de Potencia
+    //Quitamos los valores decimales de los resultados obtenidos
+    let parteEnteraBG = BigInt(Math.floor(energiaReactivaBG));
+    let parteEnteraEG = BigInt(Math.floor(energiaReactivaEG));
+    let parteEnteraEABG = BigInt(Math.floor(energiaActivaBG));
+    let parteEnteraEAEG = BigInt(Math.floor(energiaActivaEG));
+
+    //Calculo de los valores elevados a la 2
+    let elevadoER = (parteEnteraBG + parteEnteraEG) * (parteEnteraBG + parteEnteraEG);
+    let elevadoEA = (parteEnteraEABG + parteEnteraEAEG) * (parteEnteraEABG + parteEnteraEAEG)
+
+    //Sumatoria de valores que fueron elevados a la 2
+    let sumatoriaElevados = elevadoER + elevadoEA;
+
+    //Suma de la parte izquierda de la operacion para obtener el divisor
+    let sumaEnergiasAct = parteEnteraEABG + parteEnteraEG
+
+    //Envio de la sumatoria de los elevados a la funcion de la raiz 2
+    const result = sqrtNewton(sumatoriaElevados);
+
+    //colocar ambos resultados como numeros para hacer la division
+    const sumaEnergiasActivas = Number(sumaEnergiasAct);
+    const resultRaiz2 = Number(result);
+
+    //Division de los resultados
+    const divisionResultados = sumaEnergiasActivas / resultRaiz2;
+
+    //Truncar el resultado de la division a 2 cifras despues del .
+    const resultSplitTrunc = divisionResultados.toFixed(2);
+
+    //Pasar el resultado a las variables del Factor de Potencia
+    factorPotenciaBG = parseFloat(resultSplitTrunc);
+    factorPotenciaEG = parseFloat(resultSplitTrunc)
 
     //ENERGIA ACTIVA MEDIDOR 7577 BECO
     TOT_EACT_BET577 = sumEACT_AH;
@@ -545,7 +810,14 @@ export class ReportService {
     //resumen BECO GILDAN
     dataM[0].energiaActivaBG = energiaActivaBG;
     dataM[0].energiaReactivaBG = energiaReactivaBG;
+    dataM[0].factorPotenciaBG = factorPotenciaBG;
     dataM[0].demandaBG = demandaBG;
+
+    //resumen ENEE GILDAN
+    dataM[0].energiaActivaEG = energiaActivaEG;
+    dataM[0].energiaReactivaEG = energiaReactivaEG;
+    dataM[0].factorPotenciaEG = factorPotenciaEG;
+    dataM[0].demandaEG = demandaEG;
 
     //meses y anio
     dataM[0].mes = mes;

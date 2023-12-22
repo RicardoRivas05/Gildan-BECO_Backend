@@ -35,7 +35,6 @@ export class JWTService {
 
 
   createToken(credentials: any, user: any) {
-    console.log(new Date(keys.TOKEN_EXPIRATION_TIME).toISOString());
 
     try {
       let token = jsonwebtoken.sign({
@@ -58,7 +57,6 @@ export class JWTService {
     if (!token)
       throw new HttpErrors[401]("Token vacio")
     let decoded = jsonwebtoken.verify(token, keys.JWT_SECRET_KEY);
-    console.log(decoded);
     if (decoded)
       return decoded;
     else
@@ -85,14 +83,11 @@ export class JWTService {
     if (!user)
       user = await this.credencialesRepository.findOne({where: {username: identificator}});
 
-    console.log(user);
-    console.log(identificator);
 
     if (user?.correo === identificator || user?.username === identificator) {
       newpassword = this.encriptDecryptService.Encrypt(newpassword);
       user.hash = newpassword;
       this.credencialesRepository.replaceById(user.id, user);
-      console.log('se hizo');
 
       return newpassword;
     }
@@ -126,7 +121,6 @@ export class JWTService {
     let expTIME = new Date((Date.now() + (1000 * 120))).toISOString();
 
     let bodyCode = {userId: userExist.id, codigo: verificationCode, exp: expTIME, }
-    console.log(userExist);
 
     await this.codigoVerificacionRepository.create(bodyCode);
 

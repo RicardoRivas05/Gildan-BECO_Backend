@@ -36,10 +36,10 @@ export class AuthService {
       return error.EMTY_CREDENTIALS;
 
     let credentials = await this.credencialesRepository.findOne({where: {correo: loginInterface.identificator}});
-    console.log(credentials);
+
     if (!credentials)
       credentials = await this.credencialesRepository.findOne({where: {username: loginInterface.identificator}});
-    console.log(credentials);
+
 
     if (!credentials)
       return error.CREDENTIALS_NOT_REGISTER;
@@ -48,7 +48,7 @@ export class AuthService {
 
     if (!user)
       return error.CREDENTIALS_NOT_REGISTER;
-    console.log(user);
+
 
     if (!user.estado)
       return error.DISABLE_USER;
@@ -126,9 +126,7 @@ export class AuthService {
 
   async updateCredencials(credencialShema: credentialShema) {
     let modelCredentials: Credenciales = new Credenciales;
-    console.log("Recibido de front:");
 
-    console.log(credencialShema);
 
     let credentialExist = await this.credencialesRepository.findOne({where: {correo: credencialShema.correo}});
 
@@ -141,11 +139,9 @@ export class AuthService {
     modelCredentials.correo = credencialShema.correo;
     modelCredentials.username = credencialShema.username;
     modelCredentials.hash = newHash;
-    console.log(modelCredentials);
-    console.log(credentialExist);
 
     await this.credencialesRepository.updateById(credentialExist.id, modelCredentials);
-    console.log("se cambio contra");
+    
 
     return true;
   }

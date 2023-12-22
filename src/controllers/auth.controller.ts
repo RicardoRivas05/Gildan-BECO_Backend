@@ -58,7 +58,7 @@ export class AuthController {
       return {error: 'usuario no existe'}
     }
     let result = await this.jwtService.ResetPassword(user?.correo, reset.newPassword);
-    console.log(result);
+    
 
     if (!result) {
       return {error: 'accion no fue completada'};
