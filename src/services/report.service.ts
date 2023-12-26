@@ -188,6 +188,16 @@ export class ReportService {
     let diferenciaReactivaT578P = 0;
     let diferenciaReactivaT578R = 0;
 
+    let rolloverActivaT577P = false;
+    let rolloverActivaT577R = false;
+    let rolloverActivaT578P = false;
+    let rolloverActivaT578R = false;
+    let rolloverReactivaT577P = false;
+    let rolloverReactivaT577R = false;
+    let rolloverReactivaT578P = false;
+    let rolloverReactivaT578R = false;
+
+
 
     //resumen BECO-GILDAN
     let energiaActivaBG = 0
@@ -265,18 +275,19 @@ export class ReportService {
       if (Energy[i].displayName === 'RIONANCESE.MT577_P' && Energy[i].quantityID === 129) {
         if (i === 0) {
           T577PActivaInicial = Energy[0].Value;
-          T577PActivaFinal = Energy[1].Value;
+          T577PActivaFinal = Energy[i].Value;
           if (T577PActivaFinal < T577PActivaInicial) {
             diferenciaT577PActiva = diferenciaActivaT577P;
+            rolloverActivaT577P = true;
           } else {
             diferenciaT577PActiva = T577PActivaFinal - T577PActivaInicial;
           }
-
         } else {
           T577PActivaInicial = Energy[i - 1].Value;
           T577PActivaFinal = Energy[i].Value;
           if (T577PActivaFinal < T577PActivaInicial) {
             diferenciaT577PActiva = diferenciaActivaT577P;
+            rolloverActivaT577P = true;
           } else {
             diferenciaT577PActiva = T577PActivaFinal - T577PActivaInicial;
           }
@@ -290,6 +301,7 @@ export class ReportService {
           T577PReactivaFinal = Energy[1].Value;
           if (T577PReactivaFinal < T577PReactivaInicial) {
             diferenciaT577PReactiva = diferenciaReactivaT577P;
+            rolloverReactivaT577P = true;
           } else {
             diferenciaT577PReactiva = T577PReactivaFinal - T577PReactivaInicial;
           }
@@ -299,6 +311,7 @@ export class ReportService {
           T577PReactivaFinal = Energy[i].Value;
           if (T577PReactivaFinal < T577PReactivaInicial) {
             diferenciaT577PReactiva = diferenciaReactivaT577P;
+            rolloverReactivaT577P = true;
           } else {
             diferenciaT577PReactiva = T577PReactivaFinal - T577PReactivaInicial;
           }
@@ -312,6 +325,7 @@ export class ReportService {
           T577RActivaFinal = Energy[1].Value;
           if (T577RActivaFinal < T577RActivaInicial) {
             diferenciaT577RActiva = diferenciaActivaT577R;
+            rolloverActivaT577R = true;
           } else {
             diferenciaT577RActiva = T577RActivaFinal - T577RActivaInicial;
           }
@@ -321,6 +335,7 @@ export class ReportService {
           T577RActivaFinal = Energy[i].Value;
           if (T577RActivaFinal < T577RActivaInicial) {
             diferenciaT577RActiva = diferenciaActivaT577R;
+            rolloverActivaT577R = true;
           } else {
             diferenciaT577RActiva = T577RActivaFinal - T577RActivaInicial;
           }
@@ -334,6 +349,7 @@ export class ReportService {
           T577RReactivaFinal = Energy[1].Value;
           if (T577RReactivaFinal < T577RReactivaInicial) {
             diferenciaT577RReactiva = diferenciaReactivaT577R;
+            rolloverReactivaT577R = true;
           } else {
             diferenciaT577RReactiva = T577RReactivaFinal - T577RReactivaInicial;
           }
@@ -343,6 +359,7 @@ export class ReportService {
           T577RReactivaFinal = Energy[i].Value;
           if (T577RReactivaFinal < T577RReactivaInicial) {
             diferenciaT577RReactiva = diferenciaReactivaT577R;
+            rolloverReactivaT577R = true;
           } else {
             diferenciaT577RReactiva = T577RReactivaFinal - T577RReactivaInicial;
           }
@@ -357,6 +374,7 @@ export class ReportService {
           activaFinalPT578 = Energy[1].Value;
           if (activaFinalPT578 < activaInicialPT578) {
             diferenciaActivaPT578 = diferenciaActivaT578P;
+            rolloverActivaT578P = true;
           } else {
             diferenciaActivaPT578 = activaFinalPT578 - activaInicialPT578;
           }
@@ -366,6 +384,7 @@ export class ReportService {
           activaFinalPT578 = Energy[i].Value;
           if (activaFinalPT578 < activaInicialPT578) {
             diferenciaActivaPT578 = diferenciaActivaT578P;
+            rolloverActivaT578P = true;
           } else {
             diferenciaActivaPT578 = activaFinalPT578 - activaInicialPT578;
           }
@@ -378,6 +397,7 @@ export class ReportService {
           reactivaFinalPT578 = Energy[1].Value;
           if (reactivaFinalPT578 < reactivaInicialPT578) {
             diferenciaReactivaPT578 = diferenciaReactivaT578P;
+            rolloverReactivaT578P = true;
           } else {
             diferenciaReactivaPT578 = reactivaFinalPT578 - reactivaInicialPT578;
           }
@@ -387,6 +407,7 @@ export class ReportService {
           reactivaFinalPT578 = Energy[i].Value;
           if (reactivaFinalPT578 < reactivaInicialPT578) {
             diferenciaReactivaPT578 = diferenciaReactivaT578P;
+            rolloverReactivaT578P = true;
           } else {
             diferenciaReactivaPT578 = reactivaFinalPT578 - reactivaInicialPT578;
           }
@@ -400,6 +421,7 @@ export class ReportService {
           activaFinalRT578 = Energy[1].Value;
           if (activaFinalRT578 < activaInicialRT578) {
             diferenciaActivaRT578 = diferenciaActivaT578R;
+            rolloverActivaT578R = true;
           } else {
             diferenciaActivaRT578 = activaFinalRT578 - activaInicialRT578;
           }
@@ -409,6 +431,7 @@ export class ReportService {
           activaFinalRT578 = Energy[i].Value;
           if (activaFinalRT578 < activaInicialRT578) {
             diferenciaActivaRT578 = diferenciaActivaT578R;
+            rolloverActivaT578R = true;
           } else {
             diferenciaActivaRT578 = activaFinalRT578 - activaInicialRT578;
           }
@@ -421,6 +444,7 @@ export class ReportService {
           reactivaFinalRT578 = Energy[1].Value;
           if (reactivaFinalRT578 < reactivaInicialRT578) {
             diferenciaReactivaRT578 = diferenciaReactivaT578R;
+            rolloverReactivaT578R = true;
           } else {
             diferenciaReactivaRT578 = reactivaFinalRT578 - reactivaInicialRT578;
           }
@@ -430,6 +454,7 @@ export class ReportService {
           reactivaFinalRT578 = Energy[i].Value;
           if (reactivaFinalRT578 < reactivaInicialRT578) {
             diferenciaReactivaRT578 = diferenciaReactivaT578R;
+            rolloverReactivaT578R = true;
           } else {
             diferenciaReactivaRT578 = reactivaFinalRT578 - reactivaInicialRT578;
           }
@@ -765,11 +790,6 @@ export class ReportService {
     energiaReactivaBGIntervalo = ERCT_Mayor;
     demandaBGIntervalo = DEM_Mayor;
 
-    console.log('Energia Activa BG_Int :', energiaActivaBGIntervalo.toFixed(2))
-    console.log('Energia Reactiva BG_Int :', energiaReactivaBGIntervalo.toFixed(2))
-    console.log('Demanda BG_Int :', demandaBGIntervalo.toFixed(2))
-
-
     energiaActivaBG = (diferenciaActivaT577P + diferenciaActivaT577R) / 2 + (diferenciaActivaPT578 + diferenciaActivaRT578) / 2;
     energiaReactivaBG = (diferenciaReactivaT577P + diferenciaReactivaT577R) / 2 + (diferenciaReactivaPT578 + diferenciaReactivaRT578) / 2;
     demandaBG = (demandaT577P + demandaT577R) / 2 + (demandaT578P + demandaT578R) / 2;
@@ -823,22 +843,26 @@ export class ReportService {
     dataM[0].energiaActivaInicialPT577 = T577PActivaInicial;
     dataM[0].energiaActivaFinalPT577 = T577PActivaFinal;
     dataM[0].diferenciaEnergiaActivaPT577 = diferenciaT577PActiva;
+    dataM[0].rolloverActivaT577P = rolloverActivaT577P;
     //Energia Reactiva
     dataM[0].energiaReactivaInicialPT577 = T577PReactivaInicial;
     dataM[0].energiaReactivaFinalPT577 = T577PReactivaFinal;
     dataM[0].diferenciaEnergiaReactivaPT577 = diferenciaT577PReactiva;
     dataM[0].demandaT577P = demandaT577P;
+    dataM[0].rolloverReactivaT577P = rolloverReactivaT577P;
 
     //reporte T577 Respaldo
     //energia activa
     dataM[0].energiaActivaInicialRT577 = T577RActivaInicial;
     dataM[0].energiaActivaFinalRT577 = T577RActivaFinal;
     dataM[0].diferenciaEnergiaActivaRT577 = diferenciaT577RActiva;
+    dataM[0].rolloverActivaT577R = rolloverActivaT577R;
     //Energia Reactiva
     dataM[0].energiaReactivaInicialRT577 = T577RReactivaInicial;
     dataM[0].energiaReactivaFinalRT577 = T577RReactivaFinal;
     dataM[0].diferenciaEnergiaReactivaRT577 = diferenciaT577RReactiva;
     dataM[0].demandaT577R = demandaT577R;
+    dataM[0].rolloverReactivaT577R = rolloverReactivaT577R;
 
 
     //reporte T578 principal
@@ -846,11 +870,13 @@ export class ReportService {
     dataM[0].activaInicialPT578 = activaInicialPT578;
     dataM[0].activaFinalPT578 = activaFinalPT578;
     dataM[0].diferenciaActivaPT578 = diferenciaActivaPT578;
+    dataM[0].rolloverActivaT578P = rolloverActivaT578P;
     //Reactiva
     dataM[0].reactivaInicialPT578 = reactivaInicialPT578;
     dataM[0].reactivaFinalPT578 = reactivaFinalPT578;
     dataM[0].diferenciaReactivaPT578 = diferenciaReactivaPT578;
     dataM[0].demandaT578P = demandaT578P;
+    dataM[0].rolloverReactivaT578P = rolloverReactivaT578P;
 
 
     //reporte T578 Respaldo
@@ -858,11 +884,13 @@ export class ReportService {
     dataM[0].activaInicialRT578 = activaInicialRT578;
     dataM[0].activaFinalRT578 = activaFinalRT578;
     dataM[0].diferenciaActivaRT578 = diferenciaActivaRT578;
+    dataM[0].rolloverActivaT578R = rolloverActivaT578R;
     //Reactiva
     dataM[0].reactivaInicialRT578 = reactivaInicialRT578;
     dataM[0].reactivaFinalRT578 = reactivaFinalRT578;
     dataM[0].diferenciaReactivaRT578 = diferenciaReactivaRT578;
     dataM[0].demandaT578R = demandaT578R;
+    dataM[0].rolloverReactivaT578R = rolloverReactivaT578R;
 
 
     //resumen BECO GILDAN
